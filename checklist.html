@@ -289,20 +289,15 @@
     submittedEmail = formData.get('email');
     submittedName = formData.get('first_name');
 
-    // Send to n8n webhook
+    // Send to Formspree
     try {
-      await fetch('http://194.163.136.244:5678/webhook/emvy-checklist', {
+      await fetch('https://formspree.io/f/xeepkzqd', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          first_name: submittedName,
-          email: submittedEmail,
-          source: 'checklist-landing-page',
-          timestamp: new Date().toISOString()
-        })
+        body: formData,
+        headers: { 'Accept': 'application/json' }
       });
     } catch(err) {
-      console.log('Webhook error (non-blocking):', err);
+      console.log('Formspree error (non-blocking):', err);
     }
 
     // Show checklist
