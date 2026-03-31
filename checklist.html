@@ -291,7 +291,7 @@
 
     // Send to n8n webhook
     try {
-      await fetch('https://karma-gateway.com/webhook/emvy-checklist', {
+      await fetch('http://194.163.136.244:5678/webhook/emvy-checklist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
