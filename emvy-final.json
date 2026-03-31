@@ -1,0 +1,323 @@
+{
+ "name": "Emvy AI Audit Funnel",
+ "nodes": [
+  {
+   "parameters": {
+    "path": "emvy-checklist",
+    "responseMode": "lastNode",
+    "options": {
+     "rawBody": false
+    }
+   },
+   "id": "babce0a2-cf0d-4e0a-bc41-2177ed9c16d0",
+   "name": "Webhook",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 1,
+   "position": [
+    -560,
+    -240
+   ],
+   "webhookId": "emvy-checklist"
+  },
+  {
+   "parameters": {
+    "fromEmail": "dawnlabsai@gmail.com",
+    "toEmail": "={{ $json.email }}",
+    "subject": "Your AI Readiness Checklist - emvy",
+    "html": "=<h2>Hi {{ $json.first_name }},</h2>\n<p>Thanks for requesting the AI Readiness Checklist!</p>\n<p>Here's your personal link to access it:</p>\n<p><a href=\"https://emvy-site.vercel.app/checklist.html\"><strong>👉 Get Your AI Readiness Checklist</strong></a></p>\n<p>Answer the 10 questions honestly — and you'll know exactly where to start with AI in your business.</p>\n<p>Reply back with your answers and we'll send you a personalized breakdown.</p>\n<p>— The Emvy Team</p>\n",
+    "options": {}
+   },
+   "type": "n8n-nodes-base.emailSend",
+   "typeVersion": 2.1,
+   "position": [
+    240,
+    80
+   ],
+   "id": "0e4530de-6847-4d6c-b4b8-dceeea050003",
+   "name": "Email: Readiness Checklist",
+   "webhookId": "49eee900-7c3a-42c7-bd55-8f3e44499a9a",
+   "credentials": {
+    "smtp": {
+     "id": "4B9vvsB1VrbviP4t",
+     "name": "SMTP account"
+    }
+   }
+  },
+  {
+   "parameters": {
+    "amount": 2,
+    "unit": "days"
+   },
+   "type": "n8n-nodes-base.wait",
+   "typeVersion": 1.1,
+   "position": [
+    432,
+    -112
+   ],
+   "id": "dc0cb10c-141a-486b-991f-909189d5ca5d",
+   "name": "WAIT 2 Days",
+   "webhookId": "641845c9-50d1-47d3-b547-b8667faaa175"
+  },
+  {
+   "parameters": {
+    "amount": 5,
+    "unit": "days"
+   },
+   "type": "n8n-nodes-base.wait",
+   "typeVersion": 1.1,
+   "position": [
+    800,
+    -112
+   ],
+   "id": "0f88aeb1-6258-415f-9192-08d0818e09fb",
+   "name": "WAIT 5 Days",
+   "webhookId": "31823f0b-80d4-4eff-8206-36e88129ae44"
+  },
+  {
+   "parameters": {
+    "amount": 8,
+    "unit": "days"
+   },
+   "type": "n8n-nodes-base.wait",
+   "typeVersion": 1.1,
+   "position": [
+    1168,
+    -96
+   ],
+   "id": "eb01fbc0-a599-48b9-ae88-fd98a4c9c378",
+   "name": "WAIT 8 Days",
+   "webhookId": "e5faf4bf-b546-460b-b236-e8aab18e12b4"
+  },
+  {
+   "parameters": {
+    "amount": 12,
+    "unit": "days"
+   },
+   "type": "n8n-nodes-base.wait",
+   "typeVersion": 1.1,
+   "position": [
+    1552,
+    -96
+   ],
+   "id": "ddcf37c4-3a3c-49a8-b8e2-ade241eb91cd",
+   "name": "WAIT 12 Days",
+   "webhookId": "3d2df580-c3bf-461d-8276-cd47b78fd079"
+  },
+  {
+   "parameters": {
+    "fromEmail": "dawnlabsai@gmail.com",
+    "toEmail": "={{ $json.email }}",
+    "subject": "The mistake most SMBs make with AI",
+    "html": "=<p>Hi {{ $json.first_name }},</p>\n<p>Hope the checklist was useful!</p>\n<p>Most small businesses we talk to have the same problem — they try to use AI before figuring out where their team is actually wasting time.</p>\n<p>So they buy a tool, try it for a week, get half results, and quit. Sound familiar?</p>\n<p>The fix isn't the AI. It's knowing which process to automate first.</p>\n<p>Take 2 minutes. Look at your last week. What's the one task you did that felt like Groundhog Day — the same thing over and over?</p>\n<p>That's your starting point.</p>\n<p>More useful stuff coming your way soon.</p>\n<p>— The Emvy Team</p>",
+    "options": {}
+   },
+   "type": "n8n-nodes-base.emailSend",
+   "typeVersion": 2.1,
+   "position": [
+    608,
+    80
+   ],
+   "id": "103966b4-12b9-47ff-a8df-e37458cd05e9",
+   "name": "Email: SMB AI Mistakes",
+   "webhookId": "4bc5b96e-59cd-4741-afeb-5e229f969b6f",
+   "credentials": {
+    "smtp": {
+     "id": "4B9vvsB1VrbviP4t",
+     "name": "SMTP account"
+    }
+   }
+  },
+  {
+   "parameters": {
+    "fromEmail": "dawnlabsai@gmail.com",
+    "toEmail": "={{ $json.email }}",
+    "subject": "What AI actually looks like in a real SMB",
+    "html": "=<p>Hi {{ $json.first_name }},</p>\n<p>We've been talking about where to start with AI. Wanted to share a real example of what it actually looks like in a small business.</p>\n<p>We worked with a 12-person logistics company recently. They were manually entering shipment data into three different systems — same info, typed three times, every single day. One guy was spending 4 hours a day on it.</p>\n<p>We found them a simple fix. Cost $0 to test. Took 2 hours to set up.</p>\n<p>He gets that time back now. No new software. No layoffs. Just wiring up the systems they already had.</p>\n<p>That's usually where the highest ROI lives — not in shiny new AI tools. In the stuff you're already doing manually that should be automatic.</p>\n<p>What's your version of that story?</p>\n<p>— The Emvy Team</p>",
+    "options": {}
+   },
+   "type": "n8n-nodes-base.emailSend",
+   "typeVersion": 2.1,
+   "position": [
+    1008,
+    80
+   ],
+   "id": "8481b047-2f6d-41f6-8e2d-07cb6f745b86",
+   "name": "Email: AI in SMB",
+   "webhookId": "53c24538-338a-4c81-810c-65e526e568f3",
+   "credentials": {
+    "smtp": {
+     "id": "4B9vvsB1VrbviP4t",
+     "name": "SMTP account"
+    }
+   },
+   "notes": "Email 2"
+  },
+  {
+   "parameters": {
+    "fromEmail": "dawnlabsai@gmail.com",
+    "toEmail": "={{ $json.email }}",
+    "subject": "Want a deeper look at your AI opportunities?",
+    "html": "=<p>Hi {{ $json.first_name }},</p>\n<p>If you've been thinking about the checklist — here's an offer that might be useful.</p>\n<p>We offer a free 15-minute call. Not a pitch. Not a sales call.</p>\n<p>You answer 10 quick questions about your business beforehand. We review them. Then we spend 15 minutes on a real call where we tell you specifically where AI could save you time — and where you'd be wasting your money trying.</p>\n<p>Most people find it useful even if they don't work with us.</p>\n<p>No obligation. No follow-up if you don't want them.</p>\n<p>Here's the link to book: <a href=\"https://calendly.com/emvyai\">https://calendly.com/emvyai</a></p>\n<p>— The Emvy Team</p>",
+    "options": {}
+   },
+   "type": "n8n-nodes-base.emailSend",
+   "typeVersion": 2.1,
+   "position": [
+    1392,
+    80
+   ],
+   "id": "95234592-ba38-421c-af58-5c7addbef2cc",
+   "name": "Email: AI 15min Pitch",
+   "webhookId": "77609131-6708-45b0-b1cc-5aed85dc69cd",
+   "credentials": {
+    "smtp": {
+     "id": "4B9vvsB1VrbviP4t",
+     "name": "SMTP account"
+    }
+   }
+  },
+  {
+   "parameters": {
+    "fromEmail": "dawnlabsai@gmail.com",
+    "toEmail": "={{ $json.email }}",
+    "subject": "Last one from us, and what to do next",
+    "html": "=<p>Hi {{ $json.first_name }},</p>\n<p>This is our last email in the sequence. We don't want to clutter your inbox.</p>\n<p>If you're still on the fence — here's what we'd say:</p>\n<p>The businesses that get the most out of AI are the ones that started before they felt ready. They picked one small thing, tested it, learned, and adjusted.</p>\n<p>They didn't wait for certainty.</p>\n<p>If you want a no-pressure conversation about where AI might fit in your business, we're here. If not — good luck with everything.</p>\n<p>Either way — the checklist questions are worth sitting with. Even answering them for yourself is useful.</p>\n<p>Best,<br>The Emvy Team</p>\n<p>P.S. If you ever want to book a free 15-minute call: <a href=\"https://calendly.com/emvyai\">https://calendly.com/emvyai</a></p>",
+    "options": {}
+   },
+   "type": "n8n-nodes-base.emailSend",
+   "typeVersion": 2.1,
+   "position": [
+    1728,
+    80
+   ],
+   "id": "082dc99c-a0ba-426a-96b0-80c7c42f9393",
+   "name": "Email: Final Follow Up",
+   "webhookId": "883a3294-3fdd-4d03-91c7-be5fa03ad5ac",
+   "credentials": {
+    "smtp": {
+     "id": "4B9vvsB1VrbviP4t",
+     "name": "SMTP account"
+    }
+   }
+  }
+ ],
+ "connections": {
+  "Webhook": {
+   "main": [
+    [
+     {
+      "node": "Email: Readiness Checklist",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Email: Readiness Checklist": {
+   "main": [
+    [
+     {
+      "node": "WAIT 2 Days",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "WAIT 2 Days": {
+   "main": [
+    [
+     {
+      "node": "Email: SMB AI Mistakes",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Email: SMB AI Mistakes": {
+   "main": [
+    [
+     {
+      "node": "WAIT 5 Days",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "WAIT 5 Days": {
+   "main": [
+    [
+     {
+      "node": "Email: AI in SMB",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Email: AI in SMB": {
+   "main": [
+    [
+     {
+      "node": "WAIT 8 Days",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "WAIT 8 Days": {
+   "main": [
+    [
+     {
+      "node": "Email: AI 15min Pitch",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Email: AI 15min Pitch": {
+   "main": [
+    [
+     {
+      "node": "WAIT 12 Days",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "WAIT 12 Days": {
+   "main": [
+    [
+     {
+      "node": "Email: Final Follow Up",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Email: Final Follow Up": {
+   "main": [
+    []
+   ]
+  }
+ },
+ "active": false,
+ "settings": {
+  "executionOrder": "v1",
+  "binaryMode": "separate",
+  "availableInMCP": false
+ },
+ "versionId": "a9f4eb73-189a-4a5c-a608-2a7a8d125ee7",
+ "meta": {
+  "templateCredsSetupCompleted": true,
+  "instanceId": "70c835f7a9c951900466d96fb9f99787e219209c5e0e7aa86791d4726334c52a"
+ },
+ "id": "kWQlKYey0smbUaji",
+ "tags": []
+}
