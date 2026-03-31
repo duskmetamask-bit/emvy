@@ -1,0 +1,249 @@
+{
+  "name": "Emvy - AI Readiness Checklist Sequence",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "emvy-checklist",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "emvy-checklist"
+    },
+    {
+      "parameters": {
+        "email": "={{ $json.email }}",
+        "subject": "Your AI Readiness Checklist — Emvy",
+        "emailFormat": "html",
+        "content": "<h2>Hi {{ $json.first_name }},</h2><p>Here's your AI Readiness Checklist. Answer the 10 questions honestly — and you'll know exactly where to start.</p><p><strong>The 10 Questions:</strong></p><ol><li>Do you spend more than 3 hours/week on repetitive admin tasks?</li><li>Is your team manually entering data into multiple systems?</li><li>Do you follow up with customers using notes, texts, or memory?</li><li>Is your marketing the same for every customer?</li><li>Do you have clear processes for your most time-consuming tasks?</li><li>Would you know if an employee made a mistake in a key process?</li><li>Do you have 30+ minutes per week to learn and implement new tools?</li><li>Is your team comfortable using new software (not technical)?</li><li>Do you have organized, accessible data about your customers?</li><li>Do you have budget set aside for AI tools this quarter?</li></ol><p><strong>Scoring:</strong><br>7-10 yes = Ready for AI<br>4-6 yes = Almost ready — fix 2-3 things first<br>0-3 yes = Start here before investing in AI</p><p>Reply to this email with your answers and I'll send you a personalized breakdown.</p><p>— Connor, Emvy</p>",
+        "options": {
+          "fromEmail": "dawnlabsai@gmail.com",
+          "fromName": "Connor at Emvy"
+        }
+      },
+      "id": "email-checklist",
+      "name": "Email Checklist",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [450, 300],
+      "credentials": {
+        "gmail": "gmail-smtp"
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "node": "Emvy Leads",
+        "values": {
+          "email": "={{ $json.email }}",
+          "first_name": "={{ $json.first_name }}",
+          "source": "checklist-landing-page",
+          "status": "EMAIL_SENT",
+          "subscribed_at": "={{ $now }}"
+        },
+        "options": {}
+      },
+      "id": "google-sheets-append",
+      "name": "Add to Google Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "1988382243",
+        "message": "🎯 New checklist lead!\n\nName: {{ $json.first_name }}\nEmail: {{ $json.email }}\n\nThey'll receive the checklist now. Sequence starting.",
+        "options": {}
+      },
+      "id": "telegram-notify",
+      "name": "Notify Dusk (Telegram)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [850, 300],
+      "credentials": {
+        "telegramApi": "telegram-bot"
+      }
+    },
+    {
+      "parameters": {
+        "amount": 2,
+        "unit": "days",
+        "options": {}
+      },
+      "id": "wait-2days",
+      "name": "Wait 2 Days",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "email": "={{ $json.email }}",
+        "subject": "The mistake most SMBs make with AI",
+        "emailFormat": "html",
+        "content": "<p>Hi {{ $json.first_name }},</p><p>Quick one today.</p><p>Most small businesses we talk to have the same problem: they're trying to use AI before they've figured out <em>where</em> their team is actually wasting time.</p><p>So they buy a tool, try it for a week, get half results, and quit.</p><p>Sound familiar?</p><p>The fix isn't the AI. It's knowing <strong>which process to automate first</strong>.</p><p>Take 2 minutes. Look at your last week. What's the one task you did that felt like Groundhog Day — the same thing over and over?</p><p>That's your starting point.</p><p>More on this in the next email.</p><p>— Connor</p>",
+        "options": {
+          "fromEmail": "dawnlabsai@gmail.com",
+          "fromName": "Connor at Emvy"
+        }
+      },
+      "id": "email-2",
+      "name": "Email 2 - Mistake",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "amount": 5,
+        "unit": "days",
+        "options": {}
+      },
+      "id": "wait-5days",
+      "name": "Wait 5 More Days",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1450, 300]
+    },
+    {
+      "parameters": {
+        "email": "={{ $json.email }}",
+        "subject": "What AI actually looks like in a real SMB",
+        "emailFormat": "html",
+        "content": "<p>Hi {{ $json.first_name }},</p><p>I ran an audit for a 12-person logistics company last month.</p><p>They were manually entering shipment data into three different systems. Same info, typed three times, every single day. One guy was spending 4 hours a day on it.</p><p>We found them a simple automation. Cost $0 to test. Took 2 hours to set up.</p><p>He gets that time back now. No layoffs. No new software licenses. Just wiring up the systems they already had.</p><p>That's usually where the highest ROI lives — not in the shiny new AI tools. In the stuff you're already doing manually that should be automatic.</p><p>What's your version of that story?</p><p>— Connor</p>",
+        "options": {
+          "fromEmail": "dawnlabsai@gmail.com",
+          "fromName": "Connor at Emvy"
+        }
+      },
+      "id": "email-3",
+      "name": "Email 3 - SMB Story",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [1650, 300]
+    },
+    {
+      "parameters": {
+        "amount": 8,
+        "unit": "days",
+        "options": {}
+      },
+      "id": "wait-8days",
+      "name": "Wait 8 More Days",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1850, 300]
+    },
+    {
+      "parameters": {
+        "email": "={{ $json.email }}",
+        "subject": "Want a deeper look at your business?",
+        "emailFormat": "html",
+        "content": "<p>Hi {{ $json.first_name }},</p><p>If you've been answering the checklist questions — or just thinking about them — here's an offer that might be useful.</p><p>We do a free 15-minute audit call. Not a pitch. Not a sales call.</p><p>You answer 10 quick questions about your business before we talk. I review them. Then we spend 15 minutes on a real call where I tell you specifically where AI could save you time — or where you'd be wasting your money trying.</p><p>Most people find it useful even if they don't work with us.</p><p>No obligation. No follow-up sequences if you don't want them.</p><p>Here's the link to book: https://calendly.com/emvyai</p><p>— Connor</p>",
+        "options": {
+          "fromEmail": "dawnlabsai@gmail.com",
+          "fromName": "Connor at Emvy"
+        }
+      },
+      "id": "email-4",
+      "name": "Email 4 - Soft Offer",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [2050, 300]
+    },
+    {
+      "parameters": {
+        "amount": 12,
+        "unit": "days",
+        "options": {}
+      },
+      "id": "wait-12days",
+      "name": "Wait 12 More Days",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [2250, 300]
+    },
+    {
+      "parameters": {
+        "email": "={{ $json.email }}",
+        "subject": "Last one from me — and what to do next",
+        "emailFormat": "html",
+        "content": "<p>Hi {{ $json.first_name }},</p><p>This is my last email in the sequence. I don't want to clutter your inbox.</p><p>If you're still on the fence — here's what I'd say:</p><p>The businesses that get the most out of AI are the ones that <strong>started before they felt ready</strong>. They picked one small thing, tested it, learned, adjusted.</p><p>They didn't wait for certainty.</p><p>If you want a no-pressure conversation about where AI might fit in your business, I'm here. If not — good luck with everything.</p><p>Either way — the checklist questions are worth sitting with. Even answering them for yourself is useful.</p><p>Best,<br>Connor</p><p>P.S. If you ever want to book that audit call: https://calendly.com/emvyai</p>",
+        "options": {
+          "fromEmail": "dawnlabsai@gmail.com",
+          "fromName": "Connor at Emvy"
+        }
+      },
+      "id": "email-5",
+      "name": "Email 5 - Final CTA",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [2450, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          { "node": "Email Checklist", "type": "main", "index": 0 },
+          { "node": "Add to Google Sheet", "type": "main", "index": 0 },
+          { "node": "Notify Dusk (Telegram)", "type": "main", "index": 0 },
+          { "node": "Wait 2 Days", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Email Checklist": {
+      "main": [[]]
+    },
+    "Add to Google Sheet": {
+      "main": [[]]
+    },
+    "Notify Dusk (Telegram)": {
+      "main": [[]]
+    },
+    "Wait 2 Days": {
+      "main": [
+        [{ "node": "Email 2 - Mistake", "type": "main", "index": 0 }]
+      ]
+    },
+    "Email 2 - Mistake": {
+      "main": [
+        [{ "node": "Wait 5 More Days", "type": "main", "index": 0 }]
+      ]
+    },
+    "Wait 5 More Days": {
+      "main": [
+        [{ "node": "Email 3 - SMB Story", "type": "main", "index": 0 }]
+      ]
+    },
+    "Email 3 - SMB Story": {
+      "main": [
+        [{ "node": "Wait 8 More Days", "type": "main", "index": 0 }]
+      ]
+    },
+    "Wait 8 More Days": {
+      "main": [
+        [{ "node": "Email 4 - Soft Offer", "type": "main", "index": 0 }]
+      ]
+    },
+    "Email 4 - Soft Offer": {
+      "main": [
+        [{ "node": "Wait 12 More Days", "type": "main", "index": 0 }]
+      ]
+    },
+    "Wait 12 More Days": {
+      "main": [
+        [{ "node": "Email 5 - Final CTA", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null
+}
