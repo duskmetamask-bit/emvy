@@ -171,7 +171,9 @@
     </p>
 
     <div class="card" id="form-card">
-      <form id="signup-form">
+      <form id="signup-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        <input type="hidden" name="_subject" value="New guide request — emvy">
+        
         <div class="row">
           <div class="form-group">
             <label class="form-label">First name</label>
@@ -200,31 +202,10 @@
   <script>
     const form = document.getElementById('signup-form');
     const submitBtn = document.getElementById('submit-btn');
-    const formCard = document.getElementById('form-card');
-    const successMsg = document.getElementById('success-msg');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    form.addEventListener('submit', () => {
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
-
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-
-      try {
-        const res = await fetch('https://sour-seals-shake.loca.lt/webhook/emvy-guide', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        formCard.style.display = 'none';
-        successMsg.style.display = 'block';
-      } catch (err) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Me the Guide';
-        alert('Something went wrong. Please try again.');
-      }
     });
   </script>
 </body>
