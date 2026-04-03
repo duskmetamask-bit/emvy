@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emvy AI Audit — Pre-Call Questions</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #f5f5f5;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    h1 span { color: #6ee7b7; }
+    .sub {
+      color: #888;
+      font-size: 15px;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+    .form-card {
+      background: #141414;
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .field {
+      margin-bottom: 28px;
+    }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ccc;
+      margin-bottom: 8px;
+    }
+    .field label .num {
+      color: #6ee7b7;
+      margin-right: 4px;
+    }
+    .field label .req {
+      color: #6ee7b7;
+      font-size: 11px;
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 15px;
+      color: #f5f5f5;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #6ee7b7;
+    }
+    input::placeholder, textarea::placeholder {
+      color: #444;
+    }
+    textarea { resize: vertical; min-height: 80px; }
+    .checkbox-group, .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .checkbox-group label, .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #999;
+      cursor: pointer;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+    .checkbox-group input, .radio-group input {
+      width: 16px;
+      height: 16px;
+      accent-color: #6ee7b7;
+      flex-shrink: 0;
+    }
+    .row { display: flex; gap: 12px; }
+    .row .field { flex: 1; }
+    .btn {
+      width: 100%;
+      background: #6ee7b7;
+      color: #0a0a0a;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 8px;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn:disabled { opacity: 0.5; cursor: default; }
+    .note {
+      font-size: 12px;
+      color: #555;
+      margin-top: 14px;
+      text-align: center;
+    }
+    .success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .success h2 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: #6ee7b7;
+    }
+    .success p { color: #888; font-size: 15px; line-height: 1.6; }
+    @media (max-width: 480px) {
+      .row { flex-direction: column; }
+      .form-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Emvy <span>AI Audit</span></h1>
+    <p class="sub">10 questions before your call. Takes about 10 minutes. The more detail you give, the more useful our conversation will be.</p>
+
+    <div class="form-card" id="form-card">
+      <form id="q-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+
+        <!-- Q1: Industry -->
+        <div class="field">
+          <label><span class="num">1.</span> What industry is your business in? <span class="req">*</span></label>
+          <input type="text" name="q1_industry" placeholder="e.g. E-commerce, Professional Services, Agency..." required>
+        </div>
+
+        <!-- Q2: Team Size -->
+        <div class="field">
+          <label><span class="num">2.</span> How many people work in your business? <span class="req">*</span></label>
+          <select name="q2_team_size" required>
+            <option value="" disabled selected>Select one</option>
+            <option>1–5</option>
+            <option>6–15</option>
+            <option>16–30</option>
+            <option>31–50</option>
+            <option>50+</option>
+          </select>
+        </div>
+
+        <!-- Q3: Time Drain -->
+        <div class="field">
+          <label><span class="num">3.</span> Where does your team spend the most time on repetitive or manual tasks? <span class="req">*</span></label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="q3_time_drain" value="Emails and inbox management"> Emails and inbox management</label>
+            <label><input type="checkbox" name="q3_time_drain" value="Data entry and spreadsheet work"> Data entry and spreadsheet work</label>
+            <label><input type="checkbox" name="q3_time_drain" value="Customer support / responding to messages"> Customer support / responding to messages</label>
+            <label><input type="checkbox" name="q3_time_drain" value="Content creation (posts, emails, documents)"> Content creation (posts, emails, documents)</label>
+            <label><input type="checkbox" name="q3_time_drain" value="Scheduling and appointments"> Scheduling and appointments</label>
+            <label><input type="checkbox" name="q3_time_drain" value="Invoicing and payments / bookkeeping"> Invoicing and payments / bookkeeping</label>
+            <label><input type="checkbox" name="q3_time_drain" value="Reporting and analytics"> Reporting and analytics</label>
+            <label><input type="checkbox" name="q3_time_drain" value="Other"> Other</label>
+          </div>
+        </div>
+
+        <!-- Q4: Current Tools -->
+        <div class="field">
+          <label><span class="num">4.</span> What tools does your team use daily? (select all that apply)</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="q4_tools" value="Gmail / Outlook"> Gmail / Outlook</label>
+            <label><input type="checkbox" name="q4_tools" value="Slack / Teams"> Slack / Teams</label>
+            <label><input type="checkbox" name="q4_tools" value="Google Sheets / Excel"> Google Sheets / Excel</label>
+            <label><input type="checkbox" name="q4_tools" value="Canva"> Canva</label>
+            <label><input type="checkbox" name="q4_tools" value="WordPress / Webflow"> WordPress / Webflow</label>
+            <label><input type="checkbox" name="q4_tools" value="HubSpot / Salesforce / CRM"> HubSpot / Salesforce / CRM</label>
+            <label><input type="checkbox" name="q4_tools" value="Shopify"> Shopify</label>
+            <label><input type="checkbox" name="q4_tools" value="QuickBooks / Xero"> QuickBooks / Xero</label>
+            <label><input type="checkbox" name="q4_tools" value="Zapier / Make"> Zapier / Make</label>
+            <label><input type="checkbox" name="q4_tools" value="ChatGPT / Claude"> ChatGPT / Claude</label>
+          </div>
+        </div>
+
+        <!-- Q5: AI Adoption -->
+        <div class="field">
+          <label><span class="num">5.</span> Where does AI currently show up in your business? <span class="req">*</span></label>
+          <select name="q5_ai_adoption" required>
+            <option value="" disabled selected>Select one</option>
+            <option>We haven't looked at AI yet</option>
+            <option>We're using free tools (ChatGPT, Gemini) casually</option>
+            <option>We're paying for AI tools but haven't integrated them deeply</option>
+            <option>We're actively using AI in 1–2 areas of the business</option>
+            <option>We have AI integrated across multiple parts of the business</option>
+          </select>
+        </div>
+
+        <!-- Q6: AI Barriers -->
+        <div class="field">
+          <label><span class="num">6.</span> What's stopping you from using more AI right now?</label>
+          <textarea name="q6_ai_barriers" placeholder="e.g. Not sure where to start, worried about cost, too complex..."></textarea>
+        </div>
+
+        <!-- Q7: Biggest Bottleneck -->
+        <div class="field">
+          <label><span class="num">7.</span> If you could fix one operational problem tomorrow, what would it be? <span class="req">*</span></label>
+          <textarea name="q7_bottleneck" placeholder="One or two sentences..." required></textarea>
+        </div>
+
+        <!-- Q8: Decision Maker -->
+        <div class="field">
+          <label><span class="num">8.</span> Are you the person who makes decisions about new tools and technology? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="q8_decision_maker" value="Yes, I decide" required> Yes, I decide</label>
+            <label><input type="radio" name="q8_decision_maker" value="I recommend but someone else decides"> I recommend but someone else decides</label>
+            <label><input type="radio" name="q8_decision_maker" value="We decide together"> We decide together</label>
+          </div>
+        </div>
+
+        <!-- Q9: Budget Signal -->
+        <div class="field">
+          <label><span class="num">9.</span> How are you currently handling tasks that could be automated or improved with AI? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="q9_budget" value="Doing it manually (costs us time)" required> Doing it manually (costs us time)</label>
+            <label><input type="radio" name="q9_budget" value="Using free tools where we can"> Using free tools where we can</label>
+            <label><input type="radio" name="q9_budget" value="Paying contractors or VAs to handle it"> Paying contractors or VAs to handle it</label>
+            <label><input type="radio" name="q9_budget" value="Using paid software / automation tools"> Using paid software / automation tools</label>
+            <label><input type="radio" name="q9_budget" value="Already have someone internal dedicated to this"> Already have someone internal dedicated to this</label>
+          </div>
+        </div>
+
+        <!-- Q10: Goals -->
+        <div class="field">
+          <label><span class="num">10.</span> If AI could solve one problem for your business this month, what would it be? <span class="req">*</span></label>
+          <textarea name="q10_goals" placeholder="One or two sentences..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn" id="submit-btn">Send Responses</button>
+        <p class="note">Your responses go directly to our inbox. We'll review them before your call.</p>
+      </form>
+    </div>
+
+    <div class="success" id="success-msg">
+      <h2>Received. ✓</h2>
+      <p>Thanks — we've got your answers. Connor will review them before your call and come prepared with specific observations about your business.</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('q-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const formCard = document.getElementById('form-card');
+    const successMsg = document.getElementById('success-msg');
+
+    form.addEventListener('submit', () => {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      // Let Formspree handle it — show success after a delay
+      setTimeout(() => {
+        formCard.style.display = 'none';
+        successMsg.style.display = 'block';
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
